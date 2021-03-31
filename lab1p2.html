@@ -28,7 +28,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+      <a class="navbar-brand" href="index.html">Team Eg</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -65,7 +65,7 @@
             <h1>Lab 1: Light Following Robot - Part 2</h1>
             <h2 class="subheading">The Robot</h2>
             <span class="meta">Posted by
-              <a href="#">Start Bootstrap</a>
+              <a href="#">Greg Perez</a>
               on Mar 31, 2021</span>
           </div>
         </div>
@@ -80,20 +80,29 @@
         <div class="col-lg-8 col-md-10 mx-auto">
 		  <h2> Objectives </h2>
 		  <ul>
-		  <li> Learn to program the Arduino</li>
-		  <li> Use photoresistors in conjunction with the Arduino </li>
-		  <li> Create a light sensing protocol that is adaptable to various light environments </li>
+		  <li> Understand the H-Bridge</li>
+		  <li> Control the motors with the H-Bridge</li>
+		  <li> Implement part 1 to control the motors using light</li>
 		  </ul>
 		
-		  <h2> Determining Reference Voltage of the Arduino Nano Every </h2>
+		  <h2> Familiarizing Yourself with the H-Bridge </h2>
 		  
-		  <img src="img/Eq.png" align=center/>
-		  <span class="caption text-muted">Result of the ADC reading an analog signal </span>
-		  <p>The Arduino does an ADC when measuring the analog voltage fed into an analog pin. When measuring the voltage, a simple test revealed that the 5V output 
-			 was being used as the reference voltage. In more detail, the control bit for the ADC can be read and displays what reference voltage is being used.	  
+		  <img src="img/Hbridge.png" align=center/>
+		  <span class="caption text-muted">Diagram of H-Bridge. From https://www.build-electronic-circuits.com/h-bridge/ </span>
+		  <p>
+				The H-bridge in the diagram can be used to control the direction of rotation of the motor. For example, Closing S1 and S4 will rotate the motor clockwise. If S3 and S2 were closed the motor would rotate counter-clockwise.
+				This characteristic of the H-Bridge allows us to control the movement of the robot. 
 		  </p>
 		  
-		  <h2> The Circuit</h2>
+		  <img src="img/l293d.png" align=center/>
+		  <span class="caption text-muted">Pinout of L293D circuit. From L293D Spec Sheet</span>
+		  <img src="img/l293dlogic.png" align=center/>
+		  <span class="caption text-muted">Logic diagram of L293D circuit. From L293D Spec Sheet</span>
+		  <p>
+				In my implementation, we are using the L293D H-Bridge integrated circuit. The direction of the motors is controlled by pins 1A-4A and the speed is controlled by 1,2EN and 3,4EN.
+		  </p>
+		  
+		  <h2> The robot</h2>
 			
 			<img src="img/Circuit Diagram.png" align=center/>
 			</a>
