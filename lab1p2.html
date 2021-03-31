@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Clean Blog - Start Bootstrap Theme</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="css/clean-blog.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="post.html">Lab 1 Part 1: Light Following Robot</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="lab1p2.html">Lab 1 part 2: Light Following Robot</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('img/Photo.png')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Lab 1: Light Following Robot - Part 1</h1>
+            <h2 class="subheading">The photoresistors</h2>
+            <span class="meta">Posted by
+              <a href="#">Start Bootstrap</a>
+              on August 24, 2019</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+		  <h2> Objectives </h2>
+		  <ul>
+		  <li> Learn to program the Arduino</li>
+		  <li> Use photoresistors in conjunction with the Arduino </li>
+		  <li> Create a light sensing protocol that is adaptable to various light environments </li>
+		  </ul>
+		
+		  <h2> Determining Reference Voltage of the Arduino Nano Every </h2>
+		  
+		  <img src="img/Eq.png" align=center/>
+		  <span class="caption text-muted">Result of the ADC reading an analog signal </span>
+		  <p>The Arduino does an ADC when measuring the analog voltage fed into an analog pin. When measuring the voltage, a simple test revealed that the 5V output 
+			 was being used as the reference voltage. In more detail, the control bit for the ADC can be read and displays what reference voltage is being used.	  
+		  </p>
+		  
+		  <h2> The Circuit</h2>
+			
+			<img src="img/Circuit Diagram.png" align=center/>
+			</a>
+			<span class="caption text-muted"> Diagram of the voltage divider used in measuring light in the Arduino's environment. Here, R1 is a 10kOhm resistor. </span>
+			<p>The circuit above is what was used to measure the light environment of the Arduino. 2 Photoresistors are placed on opposite ends (left and right) of the Arduino
+			and facing away from each other. This allows the Arduino to 'see' in two different directions and make decisions based on the brightness of the light impinging on both
+			sensors. It is also important to note that the resistor value chosen, limits the output voltage (V<sub>out</sub>) to within [0,1023] from the ADC. Below are two pictures
+			of the assembled circuit.
+			</p>
+			<img src="img/C1.jpg" height=450/> <img src="img/C2.jpg" height=600/> 
+			<span class="caption text-muted"> Constructed circuits on the Arduino breadboard. Pin A0 is connected to the right-facing CdS photoresistor and the lef-facing photoresistor is connected to pin A1 </span>
+		  
+		  <p>When the light impinging on the photoresistor is lessened or dimmed, the resistance of the circuit increases, resulting in a lower value on the pin. This can be seen in the graph below, which can be found in the <bold>PDV-P8103</bold> spec sheet. In my workspace, I measured the lowest and highest values recorded, which were around 200 and 800. 
+          </p>
+		  
+		  <img src="img/PhotoresistorPlot.png"/>
+		  <span class="caption text-muted"> Log-log plot of the resistance v. Illumanance of the CdS photoresistor. Found in the <bold>PDV-P8103</bold> spec sheet </span>
+		  
+		  <h2> More Info About the Photoresistor </h2>
+		  Beyond the basic function of a photoresistor, a closer look at the <bold>PDV-P8103</bold> spec sheet can tell us how many photons per second are hitting the active area of the photoresistor.
+		  The active area of the photoresistor is the black squiggly pattern on the top-face of the component. I estimated its surface area with a rectangle that was 4.29 mm by 3.40 mm. Given an illuminance of 100 lux, light with an average wavelength of 600 nm and light efficacy of 90 lumen/Watt. There are about 5.0x10<sup>13</sup> photons/sec "hitting" the active area of the photoresistor.
+		  A quick rundown of the solution process was solving for the Power, then finding the energy of a photon of the photon using planck's constant, the wavelength, and the speed of light. Divide the power by the energy and you are left with the amount of photons hitting the active area of the photoresistor.
+		  
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy; Your Website 2020</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
