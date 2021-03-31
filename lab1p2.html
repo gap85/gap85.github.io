@@ -56,7 +56,7 @@
   </nav>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('img/Background.png')">
+  <header class="masthead" style="background-image: url('img/background.png')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -99,24 +99,24 @@
 		  <img src="img/l293dlogic.png" align=center/>
 		  <span class="caption text-muted">Logic diagram of L293D circuit. From L293D Spec Sheet</span>
 		  <p>
-				In my implementation, we are using the L293D H-Bridge integrated circuit. The direction of the motors is controlled by pins 1A-4A and the speed is controlled by 1,2EN and 3,4EN.
+				In my implementation, we are using the L293D H-Bridge integrated circuit. The direction of the motors is controlled by pins 1A-4A and the speed is controlled by 1,2EN and 3,4EN by the Arduino.
 		  </p>
 		  
 		  <h2> The robot</h2>
+			<img src="img/background.jpg" height=450/>
+			<span class="caption text-muted"> Circuit for the light following robot. </span>
 			
-			<img src="img/Circuit Diagram.png" align=center/>
+			<video width="320" height="240" controls>
+			<source src="/vid/PartE.mp4" type=video/mp4>
+			</video>
 			</a>
-			<span class="caption text-muted"> Diagram of the voltage divider used in measuring light in the Arduino's environment. Here, R1 is a 10kOhm resistor. </span>
-			<p>The circuit above is what was used to measure the light environment of the Arduino. 2 Photoresistors are placed on opposite ends (left and right) of the Arduino
-			and facing away from each other. This allows the Arduino to 'see' in two different directions and make decisions based on the brightness of the light impinging on both
-			sensors. It is also important to note that the resistor value chosen, limits the output voltage (V<sub>out</sub>) to within [0,1023] from the ADC. Below are two pictures
-			of the assembled circuit.
+			<span class="caption text-muted"> Controlling the motors for forward, backward, and spinning movement.
 			</p>
-			<img src="img/C1.jpg" height=450/> <img src="img/C2.jpg" height=600/> 
-			<span class="caption text-muted"> Constructed circuits on the Arduino breadboard. Pin A0 is connected to the right-facing CdS photoresistor and the lef-facing photoresistor is connected to pin A1 </span>
+			
 		  
-		  <p>When the light impinging on the photoresistor is lessened or dimmed, the resistance of the circuit increases, resulting in a lower value on the pin. This can be seen in the graph below, which can be found in the <bold>PDV-P8103</bold> spec sheet. In my workspace, I measured the lowest and highest values recorded, which were around 200 and 800. 
-          </p>
+		  <p>
+			By sending different signals to the pins mentioned in the previous section, the motors can controlled for different directions as seen above.
+		  </p>
 		  
 		  <img src="img/PhotoresistorPlot.png"/>
 		  <span class="caption text-muted"> Log-log plot of the resistance v. Illumanance of the CdS photoresistor. Found in the <bold>PDV-P8103</bold> spec sheet </span>
