@@ -62,11 +62,11 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-heading">
-            <h1>Lab 2: Light Following Robot - Part 2</h1>
+            <h1>Lab 3: Filtering and FFT</h1>
             <h2 class="subheading">The Robot</h2>
             <span class="meta">Posted by
               <a href="#">Greg Perez</a>
-              on Mar 31, 2021</span>
+              on April 30, 2021</span>
           </div>
         </div>
       </div>
@@ -80,69 +80,86 @@
         <div class="col-lg-8 col-md-10 mx-auto">
 		  <h2> Objectives </h2>
 		  <ul>
-		  <li> Understand the H-Bridge</li>
-		  <li> Control the motors with the H-Bridge</li>
-		  <li> Implement part 1 to control the motors using light</li>
+		  <li> Implement and test passive and active filters using:</li>
+				<ul>
+				<li>Hardware
+				<li>Software (Computer and MATLAB)
+				</ul>
+		  <li> Compare theoretical and measured outputs of filtering</li>
+		  <li> Implement a bandpass filter</li>
 		  </ul>
 		
-		  <h2> Familiarizing Yourself with the H-Bridge </h2>
+		  <h2> Filters in LTSpice </h2>
 		  
-		  <img src="img/Hbridge.png" align=center/>
-		  <span class="caption text-muted">Diagram of H-Bridge. From https://www.build-electronic-circuits.com/h-bridge/ </span>
 		  <p>
-				The H-bridge in the diagram can be used to control the direction of rotation of the motor. For example, Closing S1 and S4 will rotate the motor clockwise. If S3 and S2 were closed the motor would rotate counter-clockwise.
-				This characteristic of the H-Bridge allows us to control the movement of the robot. 
+				In this lab, we implement and test different filters to observe their behavior. The type of filter determines
+				what range of signal frequencies are attenuated and passed-through the circuit. The three types of filters 
+				in this lab are
+				<ul>
+				<li> Low Pass Filter</li>
+				<li> High Pass Filter</li>
+				<li> Band Pass Filter</li>
+				</ul>
+				of which the low pass and high pass filters and behavior are shown below. 
+				Accompanied with them are the cutoff frequencies of each filter, which are 3dB below the horizontal asymptote.
+		  </p>
+		  <img src="img/lpcirc.png" align=center width = 400/>
+		  <span class="caption text-muted">Lowpass circuit</span>
+		  
+		  <img src="img/lp.png" align = center width = 400/>
+		  <span class="caption text-muted">Frequency plot of the lowpass circuit above with axes dB v. Frequency(Hz)</span>
+		  
+		  <img src="img/hpcirc.png" align=center width = 400/>
+		  <span class="caption text-muted">Highpass circuit</span>
+		  
+		  <img src = "img/hp.png" align = center width = 400/>
+		  <span class="caption text-muted">Frequency plot of the highpass circuit showing the Gain v. Frequency</span>
+		  
+		  <h2> Coding the Arduino and MATLAB to Characterize Circuits </h2>
+		  
+		  <p>
+			  In this section, we build a microphone circuit with and without filtering to experimentally measure the behavior
+			  of these filters. The arduino is configured to use the ADC and measure signals captured by the circuit. Below is 
+			  a picture of the microphone circuit without any filter and its FFT. The FFT was calculated in MATLAB using the 
+			  data from the Arduino. It is important to note that this data was modified to be a signed 16 bit number from the 
+			  measured range of 0 to 1023. The microphone circuit pictured below was tested on MATLAB using a 500 Hz chirp. 
+			  The resulting time and frequency plots are shown below. 			  
 		  </p>
 		  
-		  <img src="img/l293d.png" align=center/>
-		  <span class="caption text-muted">Pinout of L293D circuit. From L293D Spec Sheet</span>
-		  <img src="img/l293dlogic.png" align=center/>
-		  <span class="caption text-muted">Logic diagram of L293D circuit. From L293D Spec Sheet</span>
-		  <p>
-				In my implementation, we are using the L293D H-Bridge integrated circuit. The direction of the motors is controlled by pins 1A-4A and the speed is controlled by 1,2EN and 3,4EN by the Arduino.
-		  </p>
+		  <img src="img/miccirc.png" align = center width = 700/>
+		  <span class = "caption text-muted"> Microphone circuit used to capture sound on the Arduino </span>
 		  
-		  <h2> The robot</h2>
-			<img src="img/background.png" height=450/>
-			<span class="caption text-muted"> Circuit for the light following robot. </span>
+		  <img src="img/micFFT.png" align = center width = 700/>
+		  <span class = "caption text-muted"> Time and frequency domain plots of measured sound </span>
+		  <p>
+		  <h2> Improving the Microphone Circuit</h2>
+		  
+			From the plot above, the amplitude is not too high, so we remedy this by adding an amplifier to the circuit. 
+			Pictured below is the aforementioned circuit and its corresponding time and frequency plots for the same MATLAB test.
+			Here we can see that the peak amplitude is much larger than the microphone without amplification. 
 			
-			<video width="400" height="800" controls>
-			<source src="/vid/PartE.mp4" type=video/mp4>
-			</video>
-			</a>
-			<span class="caption text-muted"> Controlling the motors for forward, backward, and spinning movement. </span>
+			<img src="img/micamp.png" width=700/>
+			<span class="caption text-muted"> Mic circuit with amplifier </span>
+			
+			<img src="img/micampFFT.png" width = 700/>
+			<span class="caption text-muted"> Time and frequency domain plots of measured sound at 500 Hz </span>
+			
+		
+			<h2> FFT on Arduino </h2>
+			<p>
+			In this section, we will be using a FFT package for the Arduino to calculate the FFT of the microphone data.
+			Here we have to modify the code we used to configure the ADC, lower the baud rate, and utilize an ISR to collect
+			data. The Arduino Nano should accumlate ADC 257 sampled values, 256 of which will be used for calculations (exclude the first value).
+			Each sample will be taken at intervals of 0.41667 ms, which is much larger than the sampling interval of the ADC, and satisfies
+			the Nyquist rate. An interrupt timer will be configured to the specified interval and the ISR will read the ADC value once before exiting.
+			This will continue until 257 samples have been collected. The FFT is then calculated for the data set after it has been converted to 
+			signed 16 bit integers. Below, is the FFT of three tests using a 500Hz, 700Hz, 900Hz chirp. 
 			</p>
+			<img src = "img/p1.png" width = 500/>
+			<img src = "img/p2.png" width = 500/>
+			<img src = "img/p3.png" width = 500/>
+			<span class="caption text-muted"> FFT corresponding to tests of 500Hz, 700Hz, and 900Hz signal. Bin 50 corresponds to ~500 Hz and so on. </span>
 			
-		  
-		  <p>
-			By sending different signals to the pins mentioned in the previous section, the motors can controlled for different directions as seen above. Below, the speed of the motors can also be configured!
-		  </p>
-			
-			<video width="800" height="600" controls>
-			<source src="/vid/Motor_med.mp4" type=video/mp4>
-			</video>
-			<span class="caption text-muted"> Medium speed configuration for the robot.</span>
-			
-			<video width="800" height="600" controls>
-			<source src="/vid/Motor_slow.mp4" type=video/mp4>
-			</video>
-			<span class="caption text-muted"> Slow speed configuration for the robot.</span>
-			
-			
-		  <p>
-			Finally, the Light following robot will perform the following actions in a moderate to no light environment:
-		  </p>
-		  
-		  <ul>
-		  <li> Spin in a state of oblivion when no bright light source is pointed at it</li>
-		  <li> Turn towards a brighter light source than its current environment</li>
-		  <li> Move forwards to approach the light source without wriggling. </li>
-		  </ul>
-		  
-		  <video width="800" height="600" controls>
-		  <source src="/vid/Operation.mp4" type=video/mp4>
-		  </video>
-		  <span class="caption text-muted"> Operation of the Light Following Robot. </span>
         </div>
       </div>
     </div>
