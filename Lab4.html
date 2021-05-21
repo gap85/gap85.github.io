@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Clean Blog - Start Bootstrap Theme</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="css/clean-blog.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Team Eg</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="post.html">Lab 1 Part 1: Light Following Robot</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="lab1p2.html">Lab 1 part 2: Light Following Robot</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('img\background.png')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Lab 2: Light Following Robot - Part 2</h1>
+            <h2 class="subheading">The Robot</h2>
+            <span class="meta">Posted by
+              <a href="#">Greg Perez</a>
+              on Mar 31, 2021</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+		  <h2> Objectives </h2>
+		  <ul>
+		  <li> Understand and Incorporate Ultrasound Sensor in our Robot</li>
+		  <li> Combine earlier labs to make a more complex and sophisticated robot</li>
+		  <li> Simulate and demonstrate the robot moving through a maze</li>
+		  </ul>
+		
+		  <h2> Familiarizing Yourself with the Ultrasound Sensor</h2>
+		  
+		  First, we want to characterize our Ultrasound Sensor. For our tests, we found that there was an accuracy
+		  of about 2 cm. With that in mind, we can code our implementation of the ultrasound sensor to account for this, which we will see in
+		  Demo 1 and 2.
+		  
+		  <h2> Demo 1 </h2>
+		  Demo 1 will happen as follows:
+		  <ul>
+		  <li> Use fourier analysis to plot the spectrum of frequencies played in the demo. </li>
+		  <li> Upon detecting the 550 Hz signal, the robot will </li>
+		  <ul> <li> Make 1 rotation that lasts for about 4 seconds</li> 
+				<li> Turn the onboard LED on when detecting an object as seen in the diagram for demo 1 </li>
+				<li> The robot will return to its initial position and wait once more for the 550 Hz signal to repeat the process </li></ul>
+		  </ul>
+		  
+		  <img src="img/part0.png" align=center/>
+		  <span class="caption text-muted">Spectrum plot of the frequencies present in the demo</span>
+		  
+		<img src="img/demo1.png" align=center/>
+		  <span class="caption text-muted">Diagram of the demo space</span>
+		  
+		  It is important to note that due to space constraints, the table and the recorder's legs interfered with the demo. This explains the extra LED flickers. Barring that, the demo went as expected.	
+		
+		  
+		  <video width="800" height="600" controls>
+		  <source src="img/Demo1.mp4" type=video/mp4>
+		  </video>
+		  <span class="caption text-muted"> Execution of demo 1. </span>
+		  
+		  <h2> Demo 2 </h2>
+		  Demo 2 will execute as follows:
+		  <ul>
+		  <li>  Starting at the position Start, your robot will be placed in your navigation area as shown in Fig. 3, 
+relative to the three obstacles. The robot will remain in place, motionless, with its onboard LED 
+OFF. </li>
+			<li> You will then lure your robot to its left with a bright light, at which point the onboard LED will turn 
+OFF and your robot will turn in place and follow your bright light in a straight line headed west 
+(with the light in front of the robot but at least 15-20cm above the US sensor so as not to block its 
+view cone – see inset of Fig. 3) over a distance of approximately 30cm. </li>
+			<li> Following the path as in Fig. 4, you will then lure your robot to its right in the same manner as 
+above, over a distance of about 30cm headed north towards Obstacle 1. From the moment that 
+your robot detects Obstacle 1, its onboard LED be ON solid. When your robot will be within 5cm 
+of Obstacle 1, it will stop moving even though you are trying to lure it into the obstacle, it will 
+remain in place and its onboard LED will continue to remain ON solid (i.e., not blinking).
+</li>
+<li>  You will then shine light to your robot’s left side (from the west) trying to lure your robot but it will 
+not move. You will then shine light to your robot’s right side, at which point your robot will turn in 
+place and follow your light, and from this moment its onboard LED will turn OFF and remain OFF.</li>
+<li> You will lure your robot approximately along the path shown with the long red arrows (first headed 
+east, then north, then west). As you will lure your robot in the area between the three obstacles, 
+when the robot’s US detects Obstacle 2 at a distance of 30cm, its LED be ON solid.</li>
+<li> When your robot will be within 5cm of Obstacle 2, it will stop moving and remain in place even 
+though you are trying to lure it into the obstacle, and its onboard LED will be OFF. At this point, 
+your robot will be motionless and facing west.</li>
+<li>  You will then shine your bright light from your robot’s left side (south), trying to lure it to go south
+towards Obstacle 1 which it will do by turning in place and its onboard LED be ON solid. Your robot 
+will stop 5cm away from Obstacle 1, at which point its onboard LED will remain ON. At this point, 
+your robot will be motionless and facing south. </li>
+
+<li> You will then lure your robot to go north (shining light from either side of your robot), at which 
+point your robot will turn in place and follow your light, and its onboard LED will be OFF. Your robot 
+will follow your light as it approaches Obstacle 3.</li>
+
+<li>  Your robot will continue to navigate towards Obstacle 3, being lured by your light, until it is 5cm 
+away from Obstacle 3. At that point, your robot will stop moving, and its onboard LED will remain 
+ON solid.</li>
+
+		  </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy; Your Website 2020</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
